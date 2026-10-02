@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no">
+
+<title>ToshaClient</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at 80% 0%, #7d22c933, transparent 35%),
+        radial-gradient(circle at 0% 50%, #42108033, transparent 35%),
+        #08060d;
+
+    color: white;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+}
+
+
+/* ================= HEADER ================= */
+
+header {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70px;
+
+    z-index: 1000;
+
+    background:
+        rgba(8,6,13,.82);
+
+    backdrop-filter:
+        blur(20px);
+
+    border-bottom:
+        1px solid #ffffff10;
+}
+
+.nav {
+    width: 100%;
+    max-width: 1200px;
+
+    height: 100%;
+
+    margin: auto;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 20px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    white-space: nowrap;
+}
+
+.logo span {
+    color: #a83cff;
+
+    text-shadow:
+        0 0 20px #a83cff;
+}
+
+
+/* DESKTOP MENU */
+
+.menu {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+}
+
+.menu button {
+    border: none;
+
+    background: transparent;
+
+    color: #a49baa;
+
+    padding: 10px 12px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.menu button:hover {
+    color: white;
+
+    background: #ffffff08;
+}
+
+.menu button.active {
+    color: white;
+
+    background: #a83cff1b;
+
+    box-shadow:
+        inset 0 0 0 1px #a83cff35;
+}
+
+
+/* MOBILE BUTTON */
+
+.mobile-menu-button {
+    display: none;
+
+    width: 43px;
+    height: 43px;
+
+    border:
+        1px solid #ffffff13;
+
+    border-radius: 11px;
+
+    background:
+        #ffffff07;
+
+    color: white;
+
+    font-size: 21px;
+
+    cursor: pointer;
+}
+
+
+/* ================= MOBILE MENU ================= */
+
+.mobile-panel {
+    display: none;
+
+    position: fixed;
+
+    top: 70px;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 999;
+
+    padding: 12px;
+
+    background:
+        rgba(9,6,14,.97);
+
+    backdrop-filter:
+        blur(25px);
+
+    border-bottom:
+        1px solid #ffffff12;
+
+    box-shadow:
+        0 20px 50px #00000088;
+}
+
+.mobile-panel.open {
+    display: block;
+}
+
+.mobile-panel button {
+    width: 100%;
+
+    min-height: 50px;
+
+    margin-bottom: 6px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        #ffffff06;
+
+    color: #aaa1b0;
+
+    text-align: left;
+
+    padding: 0 17px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.mobile-panel button.active {
+    color: white;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a83cff25,
+            #a83cff0b
+        );
+
+    box-shadow:
+        inset 0 0 0 1px #a83cff35;
+}
+
+
+/* ================= PAGES ================= */
+
+.page {
+    display: none;
+
+    width: 100%;
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding:
+        120px 25px
+        80px;
+}
+
+.page.active {
+    display: block;
+
+    animation:
+        pageShow .3s ease;
+}
+
+@keyframes pageShow {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* ================= EMPTY ================= */
+
+.empty {
+    width: 100%;
+
+    min-height: 300px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px;
+
+    border:
+        1px dashed #ffffff15;
+
+    border-radius: 20px;
+
+    background:
+        #ffffff03;
+}
+
+.empty-icon {
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 17px;
+
+    background:
+        #a83cff12;
+
+    color:
+        #bc72ff;
+
+    font-size: 25px;
+
+    margin-bottom: 17px;
+
+    box-shadow:
+        0 0 30px #a83cff12;
+}
+
+.empty h3 {
+    font-size: 19px;
+
+    margin-bottom: 7px;
+}
+
+.empty p {
+    color: #817889;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* ================= HOME ================= */
+
+.home {
+    min-height: 650px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 35px;
+
+    text-align: center;
+}
+
+
+/* ФОТО СВЕРХУ */
+
+.home-image {
+    width: 100%;
+
+    max-width: 850px;
+
+    order: -1;
+}
+
+.logo-image-box {
+    position: relative;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    border:
+        1px solid #a83cff35;
+
+    box-shadow:
+        0 30px 90px #00000070;
+}
+
+.logo-image-box::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            120deg,
+            transparent 35%,
+            rgba(255,255,255,.10),
+            transparent 65%
+        );
+
+    transform:
+        translateX(-100%);
+
+    animation:
+        shine 6s infinite;
+
+    pointer-events: none;
+}
+
+@keyframes shine {
+
+    60%,
+    100% {
+        transform:
+            translateX(100%);
+    }
+}
+
+.logo-image {
+    width: 100%;
+
+    border-radius: 22px;
+
+    display: block;
+}
+
+
+/* HOME TEXT */
+
+.home-content {
+    width: 100%;
+
+    max-width: 750px;
+}
+
+.badge {
+    display: inline-block;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid #a83cff35;
+
+    border-radius: 50px;
+
+    background:
+        #a83cff0d;
+
+    color: #cda1ff;
+
+    font-size: 11px;
+
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size:
+        clamp(55px, 8vw, 95px);
+
+    line-height: .87;
+
+    letter-spacing: -6px;
+}
+
+.gradient {
+    background:
+        linear-gradient(
+            100deg,
+            white,
+            #d38eff,
+            #8734ff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+}
+
+.home p {
+    color: #948b9d;
+
+    line-height: 1.7;
+
+    margin:
+        23px auto 0;
+
+    max-width: 560px;
+}
+
+.buttons {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}
+
+.btn {
+    border: none;
+
+    padding:
+        13px 18px;
+
+    border-radius: 11px;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.primary {
+    background:
+        linear-gradient(
+            135deg,
+            #ae43ff,
+            #7022ff
+        );
+
+    box-shadow:
+        0 0 30px #8c28ff33;
+}
+
+.secondary {
+    background:
+        #ffffff07;
+
+    border:
+        1px solid #ffffff12;
+}
+
+
+/* ================= TITLES ================= */
+
+.title {
+    margin-bottom: 35px;
+}
+
+.title small {
+    color: #aa4cff;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 3px;
+}
+
+.title h2 {
+    margin-top: 8px;
+
+    font-size:
+        clamp(35px,5vw,55px);
+
+    letter-spacing: -2px;
+}
+
+.title p {
+    margin-top: 10px;
+
+    max-width: 650px;
+
+    color: #8e8597;
+
+    line-height: 1.7;
+
+    font-size: 13px;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    padding:
+        35px 20px;
+
+    border-top:
+        1px solid #ffffff0b;
+
+    text-align: center;
+
+    color: #756d7d;
+
+    font-size: 11px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 850px) {
+
+    header {
+        height: 64px;
+    }
+
+    .nav {
+        padding:
+            0 14px;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .mobile-menu-button {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+    }
+
+    .mobile-panel {
+        top: 64px;
+    }
+
+    .page {
+        padding:
+            95px 15px
+            55px;
+    }
+
+    .home {
+        min-height: auto;
+
+        gap: 28px;
+    }
+
+    .home-image {
+        width: 100%;
+    }
+
+    h1 {
+        font-size:
+            clamp(50px, 17vw, 75px);
+
+        letter-spacing:
+            -4px;
+    }
+
+    .title {
+        margin-bottom: 25px;
+    }
+
+    .empty {
+        min-height: 270px;
+    }
+}
+
+
+/* ================= VERY SMALL PHONE ================= */
+
+@media (max-width: 430px) {
+
+    .logo {
+        font-size: 17px;
+    }
+
+    .page {
+        padding:
+            90px 12px
+            45px;
+    }
+
+    h1 {
+        font-size: 54px;
+
+        letter-spacing:
+            -3px;
+    }
+
+    .home p {
+        font-size: 13px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+
+        min-height: 46px;
+    }
+
+    .title h2 {
+        font-size: 36px;
+    }
+
+    .empty {
+        min-height: 240px;
+
+        padding: 20px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+<div class="nav">
+
+<div class="logo">
+TOSHA<span>CLIENT</span>
+</div>
+
+
+<div class="menu">
+
+<button
+class="active"
+onclick="openPage('home', this)">
+Главная
+</button>
+
+<button
+onclick="openPage('features', this)">
+Функции
+</button>
+
+<button
+onclick="openPage('client', this)">
+Интерфейс
+</button>
+
+<button
+onclick="openPage('about', this)">
+О проекте
+</button>
+
+<button
+onclick="openPage('news', this)">
+Новости
+</button>
+
+<button
+onclick="openPage('download', this)">
+Скачать
+</button>
+
+<button
+onclick="openPage('faq', this)">
+FAQ
+</button>
+
+</div>
+
+
+<button
+class="mobile-menu-button"
+onclick="toggleMobileMenu()">
+☰
+</button>
+
+</div>
+
+</header>
+
+
+<!-- ================= MOBILE MENU ================= -->
+
+<div
+id="mobilePanel"
+class="mobile-panel">
+
+<button
+class="active"
+onclick="mobileOpen('home', this)">
+⌂ &nbsp; Главная
+</button>
+
+<button
+onclick="mobileOpen('features', this)">
+⚔ &nbsp; Функции
+</button>
+
+<button
+onclick="mobileOpen('client', this)">
+▣ &nbsp; Интерфейс
+</button>
+
+<button
+onclick="mobileOpen('about', this)">
+◆ &nbsp; О проекте
+</button>
+
+<button
+onclick="mobileOpen('news', this)">
+✦ &nbsp; Новости
+</button>
+
+<button
+onclick="mobileOpen('download', this)">
+↓ &nbsp; Скачать
+</button>
+
+<button
+onclick="mobileOpen('faq', this)">
+? &nbsp; FAQ
+</button>
+
+</div>
+
+
+<!-- ================= HOME ================= -->
+
+<section
+id="home"
+class="page active">
+
+<div class="home">
+
+
+<!-- ФОТО ТЕПЕРЬ СВЕРХУ -->
+
+<div class="home-image">
+
+<div class="logo-image-box">
+
+<img
+class="logo-image"
+src="https://i.postimg.cc/mD1MvP4k/IMG-20261002-124914-953.jpg"
+alt="ToshaClient">
+
+</div>
+
+</div>
+
+
+<div class="home-content">
+
+<div class="badge">
+● ToshaClient v2.1.2
+</div>
+
+<h1>
+TOSHA<br>
+<span class="gradient">
+CLIENT
+</span>
+</h1>
+
+<p>
+Современный Minecraft-проект
+с собственной системой интерфейса
+и модулей.
+</p>
+
+
+<div class="buttons">
+
+<button
+class="btn primary"
+onclick="openPageByName('download')">
+↓ Скачать
+</button>
+
+<button
+class="btn secondary"
+onclick="openPageByName('features')">
+Функции →
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= FEATURES ================= -->
+
+<section
+id="features"
+class="page">
+
+<div class="title">
+
+<small>MODULES</small>
+
+<h2>
+Функции
+</h2>
+
+<p>
+Здесь будут функции ToshaClient.
+</p>
+
+</div>
+
+
+<!-- БЕЗ КАТЕГОРИЙ -->
+
+<div class="empty">
+
+<div class="empty-icon">
+✦
+</div>
+
+<h3>
+Здесь пока пусто...
+</h3>
+
+<p>
+Функции пока не добавлены.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= CLIENT ================= -->
+
+<section
+id="client"
+class="page">
+
+<div class="title">
+
+<small>INTERFACE</small>
+
+<h2>
+Интерфейс
+</h2>
+
+<p>
+Здесь будет подробная информация
+о панели ToshaClient.
+</p>
+
+</div>
+
+
+<div class="empty">
+
+<div class="empty-icon">
+▣
+</div>
+
+<h3>
+Здесь пока пусто...
+</h3>
+
+<p>
+Информация об интерфейсе пока не добавлена.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= ABOUT ================= -->
+
+<section
+id="about"
+class="page">
+
+<div class="title">
+
+<small>ABOUT PROJECT</small>
+
+<h2>
+О проекте
+</h2>
+
+<p>
+Информация о ToshaClient,
+его разработке и возможностях.
+</p>
+
+</div>
+
+
+<div class="empty">
+
+<div class="empty-icon">
+◆
+</div>
+
+<h3>
+Здесь пока пусто...
+</h3>
+
+<p>
+Информация о проекте пока не добавлена.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= NEWS ================= -->
+
+<section
+id="news"
+class="page">
+
+<div class="title">
+
+<small>UPDATES</small>
+
+<h2>
+Новости
+</h2>
+
+<p>
+Последние обновления ToshaClient.
+</p>
+
+</div>
+
+
+<div class="empty">
+
+<div class="empty-icon">
+✦
+</div>
+
+<h3>
+Здесь пока пусто...
+</h3>
+
+<p>
+Новых новостей пока нет.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= DOWNLOAD ================= -->
+
+<section
+id="download"
+class="page">
+
+<div class="title">
+
+<small>DOWNLOAD</small>
+
+<h2>
+Скачать
+</h2>
+
+<p>
+Здесь будут версии ToshaClient
+и ссылки на скачивание.
+</p>
+
+</div>
+
+
+<div class="empty">
+
+<div class="empty-icon">
+↓
+</div>
+
+<h3>
+Здесь пока пусто...
+</h3>
+
+<p>
+Файлы для скачивания пока не добавлены.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= FAQ ================= -->
+
+<section
+id="faq"
+class="page">
+
+<div class="title">
+
+<small>FAQ</small>
+
+<h2>
+FAQ
+</h2>
+
+<p>
+Ответы на частые вопросы.
+</p>
+
+</div>
+
+
+<div class="empty">
+
+<div class="empty-icon">
+?
+</div>
+
+<h3>
+Здесь пока пусто...
+</h3>
+
+<p>
+Вопросы и ответы пока не добавлены.
+</p>
+
+</div>
+
+</section>
+
+
+<footer>
+ToshaClient © 2026
+</footer>
+
+
+<script>
+
+/* ================= ПЕРЕКЛЮЧЕНИЕ ================= */
+
+function openPage(page, button) {
+
+    document
+        .querySelectorAll('.page')
+        .forEach(function(p) {
+
+            p.classList.remove('active');
+
+        });
+
+
+    document
+        .getElementById(page)
+        .classList.add('active');
+
+
+    document
+        .querySelectorAll('.menu button')
+        .forEach(function(b) {
+
+            b.classList.remove('active');
+
+        });
+
+
+    if (button) {
+        button.classList.add('active');
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+
+/* ================= МОБИЛЬНОЕ МЕНЮ ================= */
+
+function toggleMobileMenu() {
+
+    const panel =
+        document.getElementById('mobilePanel');
+
+    panel.classList.toggle('open');
+}
+
+
+function mobileOpen(page, button) {
+
+    document
+        .querySelectorAll('.page')
+        .forEach(function(p) {
+
+            p.classList.remove('active');
+
+        });
+
+
+    document
+        .getElementById(page)
+        .classList.add('active');
+
+
+    document
+        .querySelectorAll('.mobile-panel button')
+        .forEach(function(b) {
+
+            b.classList.remove('active');
+
+        });
+
+
+    if (button) {
+        button.classList.add('active');
+    }
+
+
+    document
+        .getElementById('mobilePanel')
+        .classList.remove('open');
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+
+/* ================= КНОПКИ ================= */
+
+function openPageByName(page) {
+
+    document
+        .querySelectorAll('.page')
+        .forEach(function(p) {
+
+            p.classList.remove('active');
+
+        });
+
+
+    document
+        .getElementById(page)
+        .classList.add('active');
+
+
+    /* Обновляем активный пункт обычного меню */
+
+    document
+        .querySelectorAll('.menu button')
+        .forEach(function(button) {
+
+            button.classList.remove('active');
+
+            const text =
+                button.textContent.trim();
+
+            if (
+                (page === 'home' && text === 'Главная') ||
+                (page === 'features' && text === 'Функции') ||
+                (page === 'client' && text === 'Интерфейс') ||
+                (page === 'about' && text === 'О проекте') ||
+                (page === 'news' && text === 'Новости') ||
+                (page === 'download' && text === 'Скачать') ||
+                (page === 'faq' && text === 'FAQ')
+            ) {
+                button.classList.add('active');
+            }
+
+        });
+
+
+    /* Обновляем активный пункт мобильного меню */
+
+    document
+        .querySelectorAll('.mobile-panel button')
+        .forEach(function(button) {
+
+            button.classList.remove('active');
+
+        });
+
+
+    document
+        .getElementById('mobilePanel')
+        .classList.remove('open');
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+</script>
+
+</body>
+</html>
